@@ -1,13 +1,6 @@
 # action.yml
 name: 'kyverno'
 description: 'Run kyverno cli'
-inputs:
-  argument:  # id of input
-    description: 'Arguments to kyverno cli'
-    required: no
-    default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.argument }}

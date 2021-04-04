@@ -14,9 +14,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        - name: Validate policy
-          uses: gbaeke/kyverno-cli@v1
-          with:
-            command: |
-              kyverno apply ./policies --resource=./deploy/deployment.yaml
+      - name: Validate policy
+        uses: gbaeke/kyverno-cli@v1
+        with:
+          command: |
+            kyverno apply ./policies --resource=./deploy/deployment.yaml
 ```

@@ -1,28 +1,18 @@
 # Build stage
-FROM golang:1.14 AS builder
+FROM golang:1.14
 
-LABEL maintainer="Kyverno"
+RUN git clone https://github.com/kyverno/kyverno.git
+WORKDIR kyverno
+RUN make cli
+RUN mv ./cmd/cli/kubectl-kyverno/kyverno /kyverno
 
-WORKDIR /kyverno
-
-ADD main.go /kyverno
-
-
-RUN export GOOS=linux && \
-    export GOARCH=amd64
-
-RUN go get github.com/kyverno/kyverno/pkg/kyverno
-
-RUN CGO_ENABLED=0 go build -o /output/kyverno -v main.go
+RUN ls /
 
 # Packaging stage
-FROM scratch
+FROM gcr.io/distroless/base
 
-LABEL maintainer="Kyverno"
+COPY --from=0 --chown=nonroot:nonroot /kyverno /kyverno
 
-COPY --from=builder /output/kyverno /
-COPY --from=builder /etc/passwd /etc/passwd
+USER nonroot
 
-USER 10001
-
-ENTRYPOINT ["./kyverno"]
+ENTRYPOINT ["/kyverno"]

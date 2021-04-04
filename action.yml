@@ -1,5 +1,5 @@
 # action.yml
-name: 'kyverno'
+name: 'kyverno cli'
 description: 'Run kyverno cli'
 inputs:
   command:

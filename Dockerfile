@@ -1,18 +1,10 @@
-# Build stage
-FROM golang:1.14
+FROM golang:1.15
+
+COPY src/ /
 
 RUN git clone https://github.com/kyverno/kyverno.git
 WORKDIR kyverno
 RUN make cli
-RUN mv ./cmd/cli/kubectl-kyverno/kyverno /kyverno
+RUN mv ./cmd/cli/kubectl-kyverno/kyverno /usr/bin/kyverno
 
-RUN ls /
-
-# Packaging stage
-FROM gcr.io/distroless/base
-
-COPY --from=0 --chown=nonroot:nonroot /kyverno /kyverno
-
-USER nonroot
-
-ENTRYPOINT ["/kyverno"]
+ENTRYPOINT ["/entrypoint.sh"]

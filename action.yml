@@ -1,6 +1,9 @@
 # action.yml
-name: 'kyverno cli'
-description: 'Run kyverno cli'
+name: 'kyverno-cli'
+description: 'Runs kyverno cli'
+branding:
+  icon: 'command'
+  color: 'red'
 inputs:
   command:
     description: 'kyverno command to run'

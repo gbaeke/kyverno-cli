@@ -10,6 +10,6 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'docker://gbaeke/kyverno-cli:v1.0.0'
+  image: 'docker://gbaeke/kyverno-cli:v1.0.1'
   args:
     - ${{ inputs.command }}
